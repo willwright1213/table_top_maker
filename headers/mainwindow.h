@@ -19,6 +19,7 @@ public slots:
     void newGame();
     void loadGame();
     void joinGame();
+    void createDB(const QString &name);
 
 private:
     Ui::MainWindow *ui;
