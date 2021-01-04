@@ -15,7 +15,7 @@ SOURCES += \
     sources/mainwindow.cpp
 
 HEADERS += \
-    sources/era.h \
+    headers/era.h \
     lib/sqlite3/sqlite3.h \
     headers/mainwindow.h \
 
