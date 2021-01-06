@@ -16,20 +16,30 @@ World::World(bool load, QString n):name(n){
         if(connection == SQLITE_OK){
             qDebug() << "DB CREATED";
             std::string create_character_table =
+
                     "CREATE TABLE era ("
-                    "era_id INT PRIMARY KEY NOT NULL, "
+                    "id INT PRIMARY KEY NOT NULL, "
                     "name TEXT NOT NULL, "
                     "ordering INT UNIQUE); "
 
                     "CREATE TABLE campaigns ("
-                    "campaign_id INT PRIMARY KEY NOT NULL, "
+                    "id INT PRIMARY KEY NOT NULL, "
                     "name TEXT NOT NULL, "
                     "era_id INT NOT NULL, "
                     "FOREIGN KEY(era_id) "
-                    "   REFERENCES era (era_id) );";
+                    "   REFERENCES era (id) );"
 
+                    "CREATE TABLE characters ("
+                    "id INT PRIMARY KEY NOT NULL, "
+                    "name TEXT NOT NULL, "
+                    "race TEXT NOT NULL, "
+                    "class TEXT NOT NULL );"
 
-
+                    "CREATE TABLE campaign_characters ("
+                    "campaign_id INT NOT NULL, "
+                    "character_id INT NOT NULL, "
+                    "FOREIGN KEY(campaign_id) REFERENCES campaigns(id), "
+                    "FOREIGN KEY(character_id) REFERENCES characters(id) );";
             char *errmsg;
             int execute = sqlite3_exec(db, create_character_table.c_str(), NULL, 0, &errmsg);
             qDebug() << errmsg;
