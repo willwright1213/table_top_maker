@@ -22,10 +22,10 @@ namespace model {
        void setStart(const QString& start);
        void setEnd(const QString& end);
 
-       QString *lore() const;
-       QString *name() const;
-       QString *start() const;
-       QString *end() const;
+       QString lore() const;
+       QString name() const;
+       QString start() const;
+       QString end() const;
     private:
        QString world;
     };

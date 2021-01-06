@@ -9,19 +9,24 @@ CONFIG += c++14
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    lib/sqlite3/sqlite3.c \
     sources/era.cpp \
     sources/main.cpp \
-    lib/sqlite3/sqlite3.c \
-    sources/mainwindow.cpp
+    sources/mainwindow.cpp \
+    sources/world.cpp \
+    sources/worldwindow.cpp
 
 HEADERS += \
-    headers/era.h \
     lib/sqlite3/sqlite3.h \
+    headers/era.h \
+    headers/world.h \
     headers/mainwindow.h \
+    headers/worldwindow.h
 
 
 FORMS += \
-    UI/mainwindow.ui
+    UI/mainwindow.ui \
+    UI/worldwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
