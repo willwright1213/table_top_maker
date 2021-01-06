@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDebug>
+#include <QInputDialog>
+#include <QDir>
+#include "lib/sqlite3/sqlite3.h"
+#include "headers/world.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
