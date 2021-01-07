@@ -90,13 +90,13 @@ int World::insertCampaign(std::string name, int era_id) {
 
 }
 
-int World::insertCharacter(std::string name, int era_id) {
+int World::insertCharacter(std::string name, std::string race, std::string c) {
     sqlite3 *db;
     int execute = 1;
     int connection = sqlite3_open(path()->canonicalPath().toLocal8Bit()+"/"+"name"+".db", &db);
     if(connection == SQLITE_OK){
         std::string query;
-        query = "INSERT INTO campaigns (name, era_id) VALUES ('" + name + "', " + std::to_string(era_id) + ");";
+        query = "INSERT INTO characters (name, race, class) VALUES ('" + name + "', '" + race + "', '" + c + "');";
         char *errmsg;
         execute = sqlite3_exec(db, query.c_str(), NULL, 0, &errmsg);
     }
