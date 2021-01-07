@@ -86,6 +86,20 @@ int World::insertEra(QString &name, short ordering) {
     return execute;
 }
 
+int World::insertEvent(QString &name, int era_id){
+    int execute = 1;
+    int connection = openConnection();
+    if(connection == SQLITE_OK){
+        std::string query;
+        query = "INSERT INTO campaigns (name, era_id) VALUES ('" + (std::string)name.toLocal8Bit() + "', " + std::to_string(era_id) + ");";
+        char *errmsg;
+        execute = sqlite3_exec(db, query.c_str(), NULL, 0, &errmsg);
+    }
+    closeConnection();
+    return execute;
+}
+
+
 int World::insertCampaign(QString &name, int era_id) {
     int execute = 1;
     int connection = openConnection();
@@ -99,6 +113,7 @@ int World::insertCampaign(QString &name, int era_id) {
     return execute;
 
 }
+
 
 int World::insertCharacter(QString &name,  QString &race, QString &c) {
     int execute = 1;
