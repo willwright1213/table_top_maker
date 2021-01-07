@@ -7,7 +7,7 @@
 /*
  * Era class. An Era is a large period of time in the world creation.
  * Each campaign created belongs to an era that is part of our world.
- * This class handles the creation, modification and destruction of these era,
+ * This class is a model for selected Era from the database.
 
 
 */
