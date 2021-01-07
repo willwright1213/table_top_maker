@@ -24,6 +24,8 @@ void MainWindow::newGame() {
    QString name = QInputDialog::getText(this, "New World", "World Name", QLineEdit::Normal, "Name your world", &ok);
    if(ok && !name.isEmpty()){
        World *w = new World(false, name);
+       w->insertEra("Dark Age", 0);
+       w->insertEra("Bronze Age", 1);
        //load the world window
    }
 }

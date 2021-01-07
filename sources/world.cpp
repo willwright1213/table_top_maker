@@ -1,36 +1,36 @@
 #include "../headers/world.h"
+#include <string>
 
 
-World::World(bool load, QString n):name(n){
+World::World(bool load, QString name):n(name){
     if(!load){
         sqlite3* db;
-        QDir *path = new QDir(QDir::homePath());
-        if(!QDir(path->canonicalPath().append("/World Builder")).exists())
-            QDir().mkdir(path->canonicalPath().append("/Documents/My Games/World Builder"));
+        QDir *temp_path = new QDir(QDir::homePath());
+        if(!QDir(temp_path->canonicalPath().append("/Documents/My Games/World Builder")).exists())
+            QDir().mkdir(temp_path->canonicalPath().append("/Documents/My Games/World Builder"));
         /* Create a folder of the campaign in the My Games folder */
-        if(!QDir(path->canonicalPath().append("/Documents/My Games/World Builder/").append(name)).exists())
-            QDir().mkdir(path->canonicalPath().append("/Documents/My Games/World Builder/").append(name));
-        path = new QDir(path->canonicalPath().append("/Documents/My Games/World Builder/").append(name));
+        if(!QDir(temp_path->canonicalPath().append("/Documents/My Games/World Builder/").append(n)).exists())
+            QDir().mkdir(temp_path->canonicalPath().append("/Documents/My Games/World Builder/").append(n));
         /* initiate database (opening a connection creates the db file if it doesn't exist) */
-        int connection = sqlite3_open(path->canonicalPath().toLocal8Bit()+"/"+"name"+".db", &db);
+        int connection = sqlite3_open(path()->canonicalPath().toLocal8Bit()+"/"+"name"+".db", &db);
         if(connection == SQLITE_OK){
             qDebug() << "DB CREATED";
-            std::string create_character_table =
+            std::string query =
 
                     "CREATE TABLE era ("
-                    "id INT PRIMARY KEY NOT NULL, "
+                    "id INTEGER PRIMARY KEY NOT NULL, "
                     "name TEXT NOT NULL, "
                     "ordering INT UNIQUE); "
 
                     "CREATE TABLE campaigns ("
-                    "id INT PRIMARY KEY NOT NULL, "
+                    "id INTEGER PRIMARY KEY, "
                     "name TEXT NOT NULL, "
                     "era_id INT NOT NULL, "
                     "FOREIGN KEY(era_id) "
                     "   REFERENCES era (id) );"
 
                     "CREATE TABLE characters ("
-                    "id INT PRIMARY KEY NOT NULL, "
+                    "id INTEGER PRIMARY KEY NOT NULL, "
                     "name TEXT NOT NULL, "
                     "race TEXT NOT NULL, "
                     "class TEXT NOT NULL );"
@@ -40,9 +40,10 @@ World::World(bool load, QString n):name(n){
                     "character_id INT NOT NULL, "
                     "FOREIGN KEY(campaign_id) REFERENCES campaigns(id), "
                     "FOREIGN KEY(character_id) REFERENCES characters(id) );";
+
             char *errmsg;
-            int execute = sqlite3_exec(db, create_character_table.c_str(), NULL, 0, &errmsg);
-            qDebug() << errmsg;
+            int execute = sqlite3_exec(db, query.c_str(), NULL, 0, &errmsg);
+            qDebug() << execute;
         }
         else {
             qDebug() << "db created succesfully";
@@ -52,4 +53,54 @@ World::World(bool load, QString n):name(n){
     else {
         //verify file intergrity
     }
+}
+
+QDir* World::path() const{
+    return new QDir(QDir::homePath().append("//Documents/My Games/World Builder/").append(n));
+}
+
+QString World::name() const { return World::n;}
+
+int World::insertEra(std::string name, short ordering) {
+    sqlite3 *db;
+    int execute = 1;
+    int connection = sqlite3_open(path()->canonicalPath().toLocal8Bit()+"/"+"name"+".db", &db);
+    if(connection == SQLITE_OK){
+        std::string query;
+        query = "INSERT INTO era (name, ordering) VALUES ('" + name + "', " + std::to_string(ordering) + ");";
+        char *errmsg;
+        execute = sqlite3_exec(db, query.c_str(), NULL, 0, &errmsg);
+    }
+    sqlite3_close(db);
+    return execute;
+}
+
+int World::insertCampaign(std::string name, int era_id) {
+    sqlite3 *db;
+    int execute = 1;
+    int connection = sqlite3_open(path()->canonicalPath().toLocal8Bit()+"/"+"name"+".db", &db);
+    if(connection == SQLITE_OK){
+        std::string query;
+        query = "INSERT INTO campaigns (name, era_id) VALUES ('" + name + "', " + std::to_string(era_id) + ");";
+        char *errmsg;
+        execute = sqlite3_exec(db, query.c_str(), NULL, 0, &errmsg);
+    }
+    sqlite3_close(db);
+    return execute;
+
+}
+
+int World::insertCharacter(std::string name, int era_id) {
+    sqlite3 *db;
+    int execute = 1;
+    int connection = sqlite3_open(path()->canonicalPath().toLocal8Bit()+"/"+"name"+".db", &db);
+    if(connection == SQLITE_OK){
+        std::string query;
+        query = "INSERT INTO campaigns (name, era_id) VALUES ('" + name + "', " + std::to_string(era_id) + ");";
+        char *errmsg;
+        execute = sqlite3_exec(db, query.c_str(), NULL, 0, &errmsg);
+    }
+    sqlite3_close(db);
+    return execute;
+
 }

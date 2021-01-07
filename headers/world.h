@@ -12,11 +12,15 @@ class World {
 
 public:
     World(bool load = false, QString n = QString::Null());
+    QDir *path() const;
+    QString name() const;
+    int insertEra(std::string name, short ordering);
+    int insertCampaign(std::string name, int era_id);
+    int insertCharacter(std::string name, std::string race, std::string c);
+    int addCharacterToCampaign(int char_id, int camp_id);
 
 private:
-    QString name;
-
-
+    QString n;
 };
 
 #endif // WORLD_H
