@@ -2,6 +2,8 @@
 #define ERA_H
 
 #include <QString>
+#include "lib/sqlite3/sqlite3.h"
+#include "headers/world.h"
 /*
  * Era class. An Era is a large period of time in the world creation.
  * Each campaign created belongs to an era that is part of our world.
@@ -10,25 +12,15 @@
 
 */
 
-namespace model {
+class Era {
 
-    class Era {
-
-    public:
-       Era(const QString& w);
-       ~Era();
-       void setLore(const QString& lore);
-       void setName(const QString& lore);
-       void setStart(const QString& start);
-       void setEnd(const QString& end);
-
-       QString lore() const;
-       QString name() const;
-       QString start() const;
-       QString end() const;
-    private:
-       QString world;
-    };
+public:
+   Era(World &w, int id);
+   ~Era();
+   QString name() const;
+private:
+    World &world;
+    int id;
 };
 
 #endif // ERA_H

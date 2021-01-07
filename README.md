@@ -7,3 +7,6 @@
 2. Working on the sqlite integration   
 3. Make sure data can be created, deleted and modifed effectively   
 
+# World.cpp
+
+World class file is responsible for handling the files and database of the created world.

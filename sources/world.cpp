@@ -1,10 +1,8 @@
 #include "../headers/world.h"
 #include <string>
 
-
 World::World(bool load, QString name):n(name){
     if(!load){
-        sqlite3* db;
         QDir *temp_path = new QDir(QDir::homePath());
         if(!QDir(temp_path->canonicalPath().append("/Documents/My Games/World Builder")).exists())
             QDir().mkdir(temp_path->canonicalPath().append("/Documents/My Games/World Builder"));
@@ -12,7 +10,7 @@ World::World(bool load, QString name):n(name){
         if(!QDir(temp_path->canonicalPath().append("/Documents/My Games/World Builder/").append(n)).exists())
             QDir().mkdir(temp_path->canonicalPath().append("/Documents/My Games/World Builder/").append(n));
         /* initiate database (opening a connection creates the db file if it doesn't exist) */
-        int connection = sqlite3_open(path()->canonicalPath().toLocal8Bit()+"/"+"name"+".db", &db);
+        int connection = openConnection();
         if(connection == SQLITE_OK){
             qDebug() << "DB CREATED";
             std::string query =
@@ -48,7 +46,7 @@ World::World(bool load, QString name):n(name){
         else {
             qDebug() << "db created succesfully";
         }
-        sqlite3_close(db);
+        closeConnection();
     }
     else {
         //verify file intergrity
@@ -61,46 +59,46 @@ QDir* World::path() const{
 
 QString World::name() const { return World::n;}
 
+int World::openConnection(){ return sqlite3_open(path()->canonicalPath().toLocal8Bit()+"/world.db", &db);}
+void World::closeConnection() { sqlite3_close(db);}
+
 int World::insertEra(std::string name, short ordering) {
-    sqlite3 *db;
     int execute = 1;
-    int connection = sqlite3_open(path()->canonicalPath().toLocal8Bit()+"/"+"name"+".db", &db);
+    int connection = openConnection();
     if(connection == SQLITE_OK){
         std::string query;
         query = "INSERT INTO era (name, ordering) VALUES ('" + name + "', " + std::to_string(ordering) + ");";
         char *errmsg;
         execute = sqlite3_exec(db, query.c_str(), NULL, 0, &errmsg);
     }
-    sqlite3_close(db);
+    closeConnection();
     return execute;
 }
 
 int World::insertCampaign(std::string name, int era_id) {
-    sqlite3 *db;
     int execute = 1;
-    int connection = sqlite3_open(path()->canonicalPath().toLocal8Bit()+"/"+"name"+".db", &db);
+    int connection = openConnection();
     if(connection == SQLITE_OK){
         std::string query;
         query = "INSERT INTO campaigns (name, era_id) VALUES ('" + name + "', " + std::to_string(era_id) + ");";
         char *errmsg;
         execute = sqlite3_exec(db, query.c_str(), NULL, 0, &errmsg);
     }
-    sqlite3_close(db);
+    closeConnection();
     return execute;
 
 }
 
 int World::insertCharacter(std::string name, std::string race, std::string c) {
-    sqlite3 *db;
     int execute = 1;
-    int connection = sqlite3_open(path()->canonicalPath().toLocal8Bit()+"/"+"name"+".db", &db);
+    int connection = openConnection();
     if(connection == SQLITE_OK){
         std::string query;
         query = "INSERT INTO characters (name, race, class) VALUES ('" + name + "', '" + race + "', '" + c + "');";
         char *errmsg;
         execute = sqlite3_exec(db, query.c_str(), NULL, 0, &errmsg);
     }
-    sqlite3_close(db);
+    closeConnection();
     return execute;
 
 }
