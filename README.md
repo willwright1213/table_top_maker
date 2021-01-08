@@ -1,6 +1,6 @@
 # table_top_maker
  QT Application for managing your table top games
-
+ 
 # What I'm doing right now
 
 1. Create folder structure of the application   
