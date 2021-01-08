@@ -10,6 +10,7 @@ class World {
 
 public:
     World(bool load = false, QString n = QString::Null());
+    World();
     QDir *path() const;
     int insertEra(QString &name, short ordering);
     int insertEvent(QString &name, int era_id);

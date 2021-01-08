@@ -1,4 +1,4 @@
-#include "../headers/world.h"
+#include "headers/world.h"
 #include <string>
 
 
@@ -11,56 +11,7 @@ World::World(bool load, QString name):n(name){
         if(!QDir(temp_path->canonicalPath().append("/Documents/My Games/World Builder/").append(n)).exists())
             QDir().mkdir(temp_path->canonicalPath().append("/Documents/My Games/World Builder/").append(n));
         /* initiate database (opening a connection creates the db file if it doesn't exist) */
-        int connection = database::openConnection(path());
-        if(connection == SQLITE_OK){
-            qDebug() << "DB CREATED";
-            std::string query =
-
-                    "CREATE TABLE era ("
-                    "id INTEGER PRIMARY KEY NOT NULL, "
-                    "name TEXT NOT NULL, "
-                    "ordering INT UNIQUE); "
-
-                    "CREATE TABLE events ("
-                    "id INTEGER PRIMARY KEY, "
-                    "name TEXT NOT NULL, "
-                    "era_id INT NOT NULL, "
-                    "FOREIGN KEY(era_id) "
-                    "   REFERENCES era (id) );"
-
-                    "CREATE TABLE campaigns ("
-                    "id INTEGER PRIMARY KEY, "
-                    "name TEXT NOT NULL, "
-                    "era_id INT NOT NULL, "
-                    "FOREIGN KEY(era_id) "
-                    "   REFERENCES era (id) );"
-
-                    "CREATE TABLE characters ("
-                    "id INTEGER PRIMARY KEY NOT NULL, "
-                    "name TEXT NOT NULL, "
-                    "race TEXT NOT NULL, "
-                    "class TEXT NOT NULL );"
-
-                    "CREATE TABLE campaign_characters ("
-                    "campaign_id INT NOT NULL, "
-                    "character_id INT NOT NULL, "
-                    "FOREIGN KEY(campaign_id) REFERENCES campaigns(id), "
-                    "FOREIGN KEY(character_id) REFERENCES characters(id) );"
-
-                    "CREATE TABLE event_characters ("
-                    "event_id INT NOT NULL, "
-                    "character_id INT NOT NULL, "
-                    "FOREIGN KEY(event_id) REFERENCES events(id), "
-                    "FOREIGN KEY(character_id) REFERENCES characters(id) );";
-
-            char *errmsg;
-            int execute = sqlite3_exec(database::db, query.c_str(), NULL, 0, &errmsg);
-            qDebug() << execute;
-        }
-        else {
-            qDebug() << "db created succesfully";
-        }
-        closeConnection();
+        database::initiateDB(path());
     }
     else {
         //verify file intergrity

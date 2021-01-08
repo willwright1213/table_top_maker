@@ -11,7 +11,6 @@ CONFIG += c++14
 SOURCES += \
     lib/sqlite3/sqlite3.c \
     sources/database.cpp \
-    sources/select.cpp \
     sources/era.cpp \
     sources/main.cpp \
     sources/mainwindow.cpp \
@@ -19,7 +18,6 @@ SOURCES += \
     sources/worldwindow.cpp
 
 HEADERS += \
-    headers/select.h \
     lib/sqlite3/sqlite3.h \
     headers/database.h \
     headers/world.h \

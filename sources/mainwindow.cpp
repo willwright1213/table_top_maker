@@ -28,8 +28,8 @@ void MainWindow::newGame() {
        w->insertEra(era, 0);
        era = "Bronze Age";
        w->insertEra(era, 1);
-       Era::select(*w, 2);
-       qDebug() << select::selected_era;
+       database::select(w->path(), 2, "era");
+       qDebug() << database::selected;
 
        //load the world window
    }
