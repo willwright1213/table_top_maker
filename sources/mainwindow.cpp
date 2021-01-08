@@ -28,6 +28,9 @@ void MainWindow::newGame() {
        w->insertEra(era, 0);
        era = "Bronze Age";
        w->insertEra(era, 1);
+       Era::select(*w, 2);
+       qDebug() << select::selected_era;
+
        //load the world window
    }
 }
