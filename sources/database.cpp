@@ -1,5 +1,4 @@
 #include "headers/database.h"
-#include <QHash>
 
 sqlite3* database::db;
 QVector<QString> database::selected = QVector<QString>();
@@ -62,15 +61,16 @@ int database::insert(QDir *path, std::string table, QHash<QString, QString> &dat
     std::string left = "(";
     std::string right = "VALUES (";
     query = "INSERT INTO " + table + " ";
-    for(auto val = data.begin(); val != data.end(); ++val){
-        left.append(val.key().toStdString() + (val != data.end() ? ", " : ""));
-        right.append("'" + val.value().toStdString() + "'" + (val != data.end() ? ", " : ""));
+    for(auto val = data.begin(); val != data.end(); val++){
+        left.append(val.key().toStdString() + ", ");
+        right.append("'" + val.value().toStdString() + "', ");
     }
 
+    left = left.substr(0, left.length() - 2);
+    right = right.substr(0, right.length() - 2);
     left.append(") ");
     right.append(");");
     query.append(left).append(right);
-
     database::openConnection(path);
     sqlite3_exec(database::db, query.c_str(), NULL, 0, nullptr);
     database::closeConnection();

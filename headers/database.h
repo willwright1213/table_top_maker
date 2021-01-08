@@ -4,6 +4,7 @@
 #include "lib/sqlite3/sqlite3.h"
 #include <QString>
 #include <QDir>
+#include <QDebug>
 
 namespace database {
 

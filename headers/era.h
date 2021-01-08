@@ -16,7 +16,10 @@ class Era {
 
 public:
    static int select(World &w, int id);
+   static void create(World &w, QString &name);
    static QString& selected_name();
+protected:
+   Era(int id, QString name);
 private:
     Era();
     static int id;

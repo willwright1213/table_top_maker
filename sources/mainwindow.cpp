@@ -25,11 +25,7 @@ void MainWindow::newGame() {
    if(ok && !name.isEmpty()){
        World *w = new World(false, name);
        QString era = "Dark Age";
-       w->insertEra(era, 0);
-       era = "Bronze Age";
-       w->insertEra(era, 1);
-       database::select(w->path(), 2, "era");
-       qDebug() << database::selected;
+       Era::create(*w, era);
 
        //load the world window
    }

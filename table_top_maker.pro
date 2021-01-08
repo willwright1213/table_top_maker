@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets xml
 
 CONFIG += c++14
 
@@ -18,6 +18,7 @@ SOURCES += \
     sources/worldwindow.cpp
 
 HEADERS += \
+    headers/xml.h \
     lib/sqlite3/sqlite3.h \
     headers/database.h \
     headers/world.h \
