@@ -3,7 +3,7 @@
 
 #include <QString>
 #include "headers/world.h"
-#include "headers/select.h"
+
 /*
  * Era class. An Era is a large period of time in the world creation.
  * Each campaign created belongs to an era that is part of our world.

@@ -14,8 +14,11 @@ namespace database {
     void closeConnection();
     void initiateDB(QDir *path);
 
-    extern int select(QDir *path, int id, std::string table);
-    extern int select_all(QDir *path, std::string table);
+    int insert(QDir *path, std::string table, QHash<QString, QString> &data);
+    int remove(QDir *path, int id);
+
+    int select(QDir *path, int id, std::string table);
+    int select_all(QDir *path, std::string table);
     int select_callback(void *unused, int count, char **data, char **columns);
     int select_all_callback(void *unused, int count, char **data, char **columns);
 }

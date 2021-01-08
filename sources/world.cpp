@@ -30,7 +30,7 @@ int World::insertEra(QString &name, short ordering) {
     int connection = database::openConnection(path());
     if(connection == SQLITE_OK){
         std::string query;
-        query = "INSERT INTO era (name, ordering) VALUES ('" + (std::string)name.toLocal8Bit() + "', " + std::to_string(ordering) + ");";
+        query = "INSERT INTO era (name, ordering) VALUES ('" + (std::string)name.toLocal8Bit() + "', '" + std::to_string(ordering) + "');";
         char *errmsg;
         execute = sqlite3_exec(database::db, query.c_str(), NULL, 0, &errmsg);
     }
