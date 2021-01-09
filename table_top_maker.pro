@@ -14,6 +14,7 @@ SOURCES += \
     sources/era.cpp \
     sources/main.cpp \
     sources/mainwindow.cpp \
+    sources/test.cpp \
     sources/world.cpp \
     sources/worldwindow.cpp
 

@@ -56,7 +56,7 @@ void database::initiateDB(QDir *path){
     closeConnection();
 }
 
-int database::insert(QDir *path, std::string table, QHash<QString, QString> &data){
+QVector<QString> database::insert(QDir *path, std::string table, QHash<QString, QString> &data){
     std::string query;
     std::string left = "(";
     std::string right = "VALUES (";
@@ -72,14 +72,14 @@ int database::insert(QDir *path, std::string table, QHash<QString, QString> &dat
     right.append(");");
     query.append(left).append(right);
     database::openConnection(path);
-    sqlite3_exec(database::db, query.c_str(), NULL, 0, nullptr);
+    sqlite3_exec(database::db, query.c_str(), select_callback, NULL, nullptr);
     database::closeConnection();
+    return selected;
 
 }
 
-int database::select(QDir *path, int id, std::string table) {
+QVector<QString> database::select(QDir *path, int id, std::string table) {
     database::selected.clear();
-    int execute = 1;
     if(database::openConnection(path) == SQLITE_OK){
         char *errmsg;
         std::string query;
@@ -87,7 +87,7 @@ int database::select(QDir *path, int id, std::string table) {
         sqlite3_exec(database::db, query.c_str(), select_callback, NULL, &errmsg);
     }
     database::closeConnection();
-    return execute;
+    return selected;
 };
 
 int database::select_callback(void *unused, int count, char **data, char **columns){

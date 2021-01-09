@@ -16,7 +16,8 @@ class Era {
 
 public:
    static int select(World &w, int id);
-   static void create(World &w, QString &name);
+   static void create(World &w, QString &name, int ordering);
+   static void remove(World &w, int id);
    static QString& selected_name();
 protected:
    Era(int id, QString name);

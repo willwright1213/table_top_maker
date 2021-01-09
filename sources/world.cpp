@@ -1,15 +1,14 @@
 #include "headers/world.h"
-#include <string>
-
 
 World::World(bool load, QString name):n(name){
     if(!load){
         QDir().mkpath(QDir::homePath().append("//Documents/My Games/World Builder/").append(n));
-        QDir().mkpath(path()->canonicalPath().append("/Era"));
-        QDir().mkpath(path()->canonicalPath().append("/Characters"));
-        QDir().mkpath(path()->canonicalPath().append("/Campaigns"));
+        p = new QDir(QDir::homePath().append("//Documents/My Games/World Builder/").append(n));
+        QDir().mkpath(p->canonicalPath().append("/Era"));
+        QDir().mkpath(p->canonicalPath().append("/Characters"));
+        QDir().mkpath(p->canonicalPath().append("/Campaigns"));
         /* initiate database (opening a connection creates the db file if it doesn't exist) */
-        database::initiateDB(path());
+        database::initiateDB(p);
         qDebug() << path()->canonicalPath();
     }
     else {
@@ -18,5 +17,13 @@ World::World(bool load, QString name):n(name){
 }
 
 QDir* World::path() const{
-    return new QDir(QDir::homePath().append("//Documents/My Games/World Builder/").append(n));
+    return p;
+}
+
+void World::destroy() {
+    QDir(*path()).removeRecursively();
+}
+
+World::~World(){
+    delete(p);
 }

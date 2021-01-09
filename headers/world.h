@@ -10,18 +10,12 @@ class World {
 
 public:
     World(bool load = false, QString n = QString::Null());
-    World();
+    ~World();
+    void destroy();
     QDir *path() const;
-    int insertEra(QString &name, short ordering);
-    int insertEvent(QString &name, int era_id);
-    int insertCampaign(QString &name, int era_id);
-    int insertCharacter(QString &name, QString &race, QString &c);
-    int addCharacterToCampaign(int char_id, int camp_id);
-    int openConnection();
-    void closeConnection();
-
 private:
     QString n;
+    QDir *p;
 };
 
 
