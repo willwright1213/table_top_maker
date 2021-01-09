@@ -3,7 +3,7 @@
 
 void Model::create(World &w, std::string table, QHash<QString, QString> input){
     int code = database::insert(w.path(), table, input);
-    if(code != SQLITE_OK) throw std::invalid_argument("Could not insert data, error: " + std::to_string(code));
+    if(code != SQLITE_OK) throw std::invalid_argument("Could not insert data, error");
 }
 
 void Model::remove(World &w, std::string table, int id){

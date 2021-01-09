@@ -16,7 +16,6 @@ SOURCES += \
     sources/main.cpp \
     sources/mainwindow.cpp \
     sources/model.cpp \
-    sources/test.cpp \
     sources/world.cpp \
     sources/worldwindow.cpp
 

@@ -3,7 +3,8 @@
 void Character::create(World &w, QString &name, QString &race, QString &c) {
     QHash<QString, QString> input;
     input.insert("name", name);
-    input.insert("ordering", QString::number(ordering));
+    input.insert("race", race);
+    input.insert("class", c);
     Model::create(w, "era", input);
     //xml::generate();
 
