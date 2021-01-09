@@ -2,7 +2,7 @@
 #define ERA_H
 
 #include <QString>
-#include "headers/world.h"
+#include "headers/model.h"
 
 /*
  * Era class. An Era is a large period of time in the world creation.
@@ -12,7 +12,7 @@
 
 */
 
-class Era {
+class Era: public Model {
 
 public:
    static int select(World &w, int id);

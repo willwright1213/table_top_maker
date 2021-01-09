@@ -1,8 +1,6 @@
-#include "../headers/era.h"
-#include "headers/world.h"
-#include <iostream>
+#include "headers/character.h"
 
-void Era::create(World &w, QString &name, int ordering) {
+void Character::create(World &w, QString &name, QString &race, QString &c) {
     QHash<QString, QString> input;
     input.insert("name", name);
     input.insert("ordering", QString::number(ordering));
@@ -11,6 +9,6 @@ void Era::create(World &w, QString &name, int ordering) {
 
 }
 
-void Era::remove(World &w, int id){
+void Character::remove(World &w, int id){
     Model::remove(w, "era", id);
 }

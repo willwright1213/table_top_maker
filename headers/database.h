@@ -15,8 +15,8 @@ namespace database {
     void closeConnection();
     void initiateDB(QDir *path);
 
-    QVector<QString> insert(QDir *path, std::string table, QHash<QString, QString> &data);
-    int remove(QDir *path, int id);
+    int insert(QDir *path, std::string table, QHash<QString, QString> &data);
+    int remove(QDir *path, std::string table, int id);
 
     QVector<QString> select(QDir *path, int id, std::string table);
     int select_all(QDir *path, std::string table);

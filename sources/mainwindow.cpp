@@ -25,7 +25,7 @@ void MainWindow::newGame() {
    if(ok && !name.isEmpty()){
        World *w = new World(false, name);
        QString era = "Dark Age";
-       Era::create(*w, era);
+       Era::create(*w, era, 1);
 
        //load the world window
    }

@@ -56,7 +56,8 @@ void database::initiateDB(QDir *path){
     closeConnection();
 }
 
-QVector<QString> database::insert(QDir *path, std::string table, QHash<QString, QString> &data){
+int database::insert(QDir *path, std::string table, QHash<QString, QString> &data){
+    int execute;
     std::string query;
     std::string left = "(";
     std::string right = "VALUES (";
@@ -72,14 +73,14 @@ QVector<QString> database::insert(QDir *path, std::string table, QHash<QString, 
     right.append(");");
     query.append(left).append(right);
     database::openConnection(path);
-    sqlite3_exec(database::db, query.c_str(), select_callback, NULL, nullptr);
+    execute = sqlite3_exec(database::db, query.c_str(), select_callback, NULL, nullptr);
     database::closeConnection();
-    return selected;
+    return execute;
 
 }
 
 QVector<QString> database::select(QDir *path, int id, std::string table) {
-    database::selected.clear();
+    selected.clear();
     if(database::openConnection(path) == SQLITE_OK){
         char *errmsg;
         std::string query;
@@ -89,6 +90,16 @@ QVector<QString> database::select(QDir *path, int id, std::string table) {
     database::closeConnection();
     return selected;
 };
+
+int database::remove(QDir *path, std::string table, int id){
+    int execute;
+    std::string query;
+    openConnection(path);
+    query = "REMOVE * FROM " + table + " WHERE id = " + std::to_string(id) + ";";
+    execute = sqlite3_exec(db, query.c_str(), select_callback, NULL, nullptr);
+    closeConnection();
+    return execute;
+}
 
 int database::select_callback(void *unused, int count, char **data, char **columns){
     int i;

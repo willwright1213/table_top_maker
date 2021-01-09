@@ -10,15 +10,19 @@ CONFIG += c++14
 
 SOURCES += \
     lib/sqlite3/sqlite3.c \
+    sources/character.cpp \
     sources/database.cpp \
     sources/era.cpp \
     sources/main.cpp \
     sources/mainwindow.cpp \
+    sources/model.cpp \
     sources/test.cpp \
     sources/world.cpp \
     sources/worldwindow.cpp
 
 HEADERS += \
+    headers/model.h \
+    headers/character.h \
     headers/xml.h \
     lib/sqlite3/sqlite3.h \
     headers/database.h \

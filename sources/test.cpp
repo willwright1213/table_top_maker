@@ -1,10 +1,9 @@
 #include "headers/world.h"
 #include "headers/era.h"
 
-int main(int argc, char *argv[])
+int main()
 {
-
-
-
+    World *test = new World("Test World");
+    delete(test);
     return 0;
 }
