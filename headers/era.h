@@ -18,6 +18,7 @@ public:
    static int select(World &w, int id);
    static void create(World &w, QString &name, int ordering);
    static void remove(World &w, int id);
+   static int find_by_name(World &w, QString &name);
    static QString& selected_name();
 protected:
    Era(int id, QString name);

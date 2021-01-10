@@ -14,3 +14,7 @@ void Era::create(World &w, QString &name, int ordering) {
 void Era::remove(World &w, int id){
     Model::remove(w, "era", id);
 }
+
+int Era::find_by_name(World &w, QString &name){
+    Model::find_id(w, "era", name, "name");
+}

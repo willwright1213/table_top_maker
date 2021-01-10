@@ -2,6 +2,7 @@
 
 sqlite3* database::db;
 QVector<QString> database::selected = QVector<QString>();
+std::string database::query;
 
 int database::openConnection(QDir *path){ return sqlite3_open(path->canonicalPath().toLocal8Bit()+"/world.db", &database::db);}
 void database::closeConnection() { sqlite3_close(database::db);}
@@ -58,7 +59,6 @@ void database::initiateDB(QDir *path){
 
 int database::insert(QDir *path, std::string table, QHash<QString, QString> &data){
     int execute;
-    std::string query;
     std::string left = "(";
     std::string right = "VALUES (";
     query = "INSERT INTO " + table + " ";
@@ -74,7 +74,8 @@ int database::insert(QDir *path, std::string table, QHash<QString, QString> &dat
     query.append(left).append(right);
     database::openConnection(path);
     execute = sqlite3_exec(database::db, query.c_str(), select_callback, NULL, nullptr);
-    database::closeConnection();
+    closeConnection();
+    if(execute != SQLITE_OK)  throw std::invalid_argument(std::to_string(execute));
     return execute;
 
 }
@@ -93,11 +94,11 @@ QVector<QString> database::select(QDir *path, int id, std::string table) {
 
 int database::remove(QDir *path, std::string table, int id){
     int execute;
-    std::string query;
     openConnection(path);
-    query = "REMOVE * FROM " + table + " WHERE id = " + std::to_string(id) + ";";
+    query = "DELETE FROM " + table + " WHERE id = " + std::to_string(id) + ";";
     execute = sqlite3_exec(db, query.c_str(), select_callback, NULL, nullptr);
     closeConnection();
+    if(execute != SQLITE_OK)  throw std::invalid_argument(std::to_string(execute));
     return execute;
 }
 
@@ -106,4 +107,16 @@ int database::select_callback(void *unused, int count, char **data, char **colum
     for(i = 0; i<count;i++)
         database::selected.append(data[i]);
     return 0;
+}
+
+int database::find_id(QDir *path, std::string table, std::string value, std::string column){
+    selected.clear();
+    int execute;
+    query = "SELECT * FROM " + table + " WHERE " + column + " = " + "'" + value + "';";
+    openConnection(path);
+    execute = sqlite3_exec(db, query.c_str(), select_callback, NULL, nullptr);
+    closeConnection();
+    if(execute != SQLITE_OK)  throw std::invalid_argument(std::to_string(execute));
+    if(selected.isEmpty())  throw std::invalid_argument("No ID found with value: " + value);
+    return selected.at(0).toInt();
 }

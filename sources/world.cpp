@@ -21,7 +21,7 @@ QDir* World::path() const{
 }
 
 void World::destroy() {
-    QDir(*path()).removeRecursively();
+    path()->removeRecursively();
 }
 
 World::~World(){
