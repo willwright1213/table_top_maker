@@ -5,7 +5,7 @@ void Character::create(World &w, QString &name, QString &race, QString &c) {
     input.insert("name", name);
     input.insert("race", race);
     input.insert("class", c);
-    Model::create(w, "era", input);
+    Model::create(w, "characters", input);
     //xml::generate();
 
 }

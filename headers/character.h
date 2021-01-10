@@ -7,6 +7,7 @@
 #endif // CHARACTER_H
 
 class Character: public Model {
-    void create(World &w, QString &name, QString &race, QString &c);
-    void remove(World &w, int id);
+public:
+    static void create(World &w, QString &name, QString &race, QString &c);
+    static void remove(World &w, int id);
 };

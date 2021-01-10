@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets xml
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets xml testlib
 
 CONFIG += c++14
 
@@ -16,6 +16,7 @@ SOURCES += \
     sources/main.cpp \
     sources/mainwindow.cpp \
     sources/model.cpp \
+    sources/modeltest.cpp \
     sources/world.cpp \
     sources/worldwindow.cpp
 
