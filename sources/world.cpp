@@ -10,6 +10,7 @@ World::World(bool load, QString name):n(name){
         /* initiate database (opening a connection creates the db file if it doesn't exist) */
         database::initiateDB(p);
         qDebug() << path()->canonicalPath();
+
     }
     else {
         //verify file intergrity

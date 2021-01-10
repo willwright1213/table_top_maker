@@ -18,6 +18,7 @@ private slots:
     void initTestCase()
     {
         w = new World(false, "test");
+        Era::initiate_validators();
     }
 
     void valid_insertion()
@@ -33,6 +34,8 @@ private slots:
             verification = e.what();
         }
 
+        /*
+
         QString character_name = "Willis";
         QString character_race = "Human";
         QString character_class = "Paladin";
@@ -43,6 +46,8 @@ private slots:
             verification = e.what();
         }
 
+        */
+        qDebug() << verification;
         QVERIFY(verification == "");
     }
 

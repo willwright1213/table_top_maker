@@ -35,11 +35,17 @@ void database::initiateDB(QDir *path){
                 "id INTEGER PRIMARY KEY NOT NULL, "
                 "name TEXT NOT NULL, "
                 "race TEXT NOT NULL, "
-                "class TEXT NOT NULL );"
+                "class TEXT NOT NULL, "
+                "birth_year TEXT NOT NULL, "
+                "birth_place TEXT NOT NULL, "
+                "death_year TEXT, "
+                "death_place TEXT);"
 
                 "CREATE TABLE campaign_characters ("
                 "campaign_id INT NOT NULL, "
                 "character_id INT NOT NULL, "
+                "group TEXT, "
+                "alignment TEXT, "
                 "FOREIGN KEY(campaign_id) REFERENCES campaigns(id), "
                 "FOREIGN KEY(character_id) REFERENCES characters(id) );"
 
