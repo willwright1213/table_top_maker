@@ -3,10 +3,11 @@
 
 #include <QtXml>
 #include <QDir>
+#include "headers/database.h"
 
 namespace htmlGenerator {
 
-void generate(QHash<QString, QHash<QString, QString>>);
+void generate(QDir *path, QString, QHash<QString, QString>&);
 void characterTemplate(QDir *path, QString new_name);
 }
 

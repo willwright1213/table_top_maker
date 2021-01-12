@@ -1,7 +1,7 @@
 #include "headers/database.h"
 
 sqlite3* database::db;
-QVector<QString> database::selected = QVector<QString>();
+QHash<QString, QString> database::selected = QHash<QString, QString>();
 std::string database::query;
 
 int database::openConnection(QDir *path){ return sqlite3_open(path->canonicalPath().toLocal8Bit()+"/world.db", &database::db);}
@@ -88,7 +88,7 @@ int database::insert(QDir *path, std::string table, QHash<QString, QString> &dat
 
 }
 
-QVector<QString> database::select(QDir *path, int id, std::string table) {
+QHash<QString, QString> database::select(QDir *path, int id, std::string table) {
     selected.clear();
     if(database::openConnection(path) == SQLITE_OK){
         char *errmsg;
@@ -113,7 +113,7 @@ int database::remove(QDir *path, std::string table, int id){
 int database::select_callback(void *unused, int count, char **data, char **columns){
     int i;
     for(i = 0; i<count;i++)
-        database::selected.append(data[i]);
+        database::selected.insert(columns[i], data[i]);
     return 0;
 }
 
@@ -126,5 +126,5 @@ int database::find_id(QDir *path, std::string table, std::string value, std::str
     closeConnection();
     if(execute != SQLITE_OK)  throw std::invalid_argument(std::to_string(execute));
     if(selected.isEmpty())  throw std::invalid_argument("No ID found with value: " + value);
-    return selected.at(0).toInt();
+    return selected.value("id").toInt();
 }

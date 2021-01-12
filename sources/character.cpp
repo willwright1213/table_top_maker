@@ -16,8 +16,7 @@ void Character::create(World &w, const QString &name, const QString &race, const
     if(death_place != nullptr) input.insert("death_place", death_year);
     if(!Model::validate_all(input, validators)) throw std::invalid_argument("validation error");
     Model::create(w, "characters", input);
-    create_html(w);
-
+    Model::generateHTML(w, "characters", database::selected);
 }
 
 void Character::create(World &w, QString &name, QString &race, QString &c, QString &birth_year, QString &birth_place)
@@ -30,8 +29,6 @@ void Character::create(World &w, QString &name, QString &race, QString &c, QStri
     input.insert("birth_place", birth_place);
     if(!Model::validate_all(input, validators)) throw std::invalid_argument("validation error");
     Model::create(w, "characters", input);
-    create_html(w);
-
 }
 
 
@@ -84,43 +81,4 @@ void Character::generate_css(World &w){
     file.open(QIODevice::WriteOnly);
     file.write("body {} #wrapper {width: 100%;background-color: red;} ");
     file.close();
-}
-
-void Character::create_html(World &w){
-    QFile file(w.path()->canonicalPath().append("/characters/template/template.html"));
-    file.open(QIODevice::ReadOnly);
-    QString data = file.readAll();
-
-    QRegularExpression id("<%id%>");
-    QRegularExpression name("<%name%>");
-    QRegularExpression race("<%race%>");
-    QRegularExpression c("<%class%>");
-    QRegularExpression birth_year("<%birth_year%>");
-    QRegularExpression birth_place("<%birth_place%>");
-    QRegularExpression bio("<%bio%>");
-
-
-    QString replaceId(database::selected.at(0));
-    QString replaceName(database::selected.at(1));
-    QString replaceRace(database::selected.at(2));
-    QString replaceClass(database::selected.at(3));
-    QString replaceBirthYear(database::selected.at(4));
-    QString replaceBirthPlace(database::selected.at(5));
-    QString replaceBio(database::selected.at(8));
-
-    data.replace(id, replaceId);
-    data.replace(name, replaceName);
-    data.replace(race, replaceRace);
-    data.replace(c, replaceClass);
-    data.replace(birth_place, replaceBirthPlace);
-    data.replace(birth_year, replaceBirthYear);
-    data.replace(bio, replaceBio);
-
-    qDebug() << w.path()->canonicalPath().append("/characters/" + database::selected.at(0) + "_" + database::selected.at(1) +".html");
-    QFile newFile(w.path()->canonicalPath().append("/characters/" + database::selected.at(0) + "_" + database::selected.at(1) +".html"));
-    newFile.open(QIODevice::WriteOnly);
-    QTextStream out(&newFile);
-    out << data;
-    newFile.close();
-
 }

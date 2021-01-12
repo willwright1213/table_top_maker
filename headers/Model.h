@@ -2,7 +2,7 @@
 #define MODEL_H
 
 #include "world.h"
-
+#include <QRegularExpression>
 class Model {
 
 protected:
@@ -12,6 +12,7 @@ protected:
     static void remove(World &w, std::string table, int id);
     static bool validate(QString &value, QRegExp validator);
     static bool validate_all(QHash<QString, QString> &values, QHash<QString, QRegExp> validators);
+    static void generateHTML(World &w, QString, QHash<QString, QString>&);
 };
 
 #endif // MODEL_H

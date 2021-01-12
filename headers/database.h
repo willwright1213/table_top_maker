@@ -10,7 +10,7 @@ namespace database {
 
     extern std::string query;
     extern sqlite3 *db;
-    extern QVector<QString> selected;
+    extern QHash<QString, QString> selected;
 
     int openConnection(QDir *path);
     void closeConnection();
@@ -22,7 +22,7 @@ namespace database {
     int remove(QDir *path, std::string table, int id);
 
 
-    QVector<QString> select(QDir *path, int id, std::string table);
+    QHash<QString, QString> select(QDir *path, int id, std::string table);
     int select_all(QDir *path, std::string table);
     int select_callback(void *unused, int count, char **data, char **columns);
     int select_all_callback(void *unused, int count, char **data, char **columns);
