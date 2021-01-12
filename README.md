@@ -4,7 +4,6 @@
  I decided to make a project related to table top games because it's a hobby that I've been doing for a while and wanted to create a tool that my
  DM (Dungeon Master) could use.
  
-
 # How it should work
 
 Table Top Maker (There's really no official name for it), is a tool to store and classify information about a fictional world, one that DM my re-use many times
@@ -17,10 +16,10 @@ and include them in one or many campaigns.
 There is no gui functionality (This app is not in a working state). What I'm doing right now is setting up the "skeleton" of my application for a lack of a better word.
 This means writing functions related to database queries (insert, remove, select, etc..) and eventually functions that would generate html files for the view.
 
-# Database.cpp
+# SQlite3
 
-This is the source I'm mainly working right now. It holds the function that is responsible for database transactions such as
-insert, modification and removal.
+This Project works with the amalgammation files of sqlite3 which I have no included in this repository. Sqlite3 can be downloaded here: https://www.sqlite.org/download.html
+In the root folder of the project, create a folder "lib/sqlite3", and include the files of the ammalgammation in this folder. 
 
 # World.cpp
 
