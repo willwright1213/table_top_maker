@@ -39,7 +39,8 @@ void database::initiateDB(QDir *path){
                 "birth_year TEXT NOT NULL, "
                 "birth_place TEXT NOT NULL, "
                 "death_year TEXT, "
-                "death_place TEXT);"
+                "death_place TEXT, "
+                "bio TEXT);"
 
                 "CREATE TABLE campaign_characters ("
                 "campaign_id INT NOT NULL, "
@@ -80,6 +81,7 @@ int database::insert(QDir *path, std::string table, QHash<QString, QString> &dat
     query.append(left).append(right);
     database::openConnection(path);
     execute = sqlite3_exec(database::db, query.c_str(), select_callback, NULL, nullptr);
+    select(path, sqlite3_last_insert_rowid(db), table);
     closeConnection();
     if(execute != SQLITE_OK)  throw std::invalid_argument(std::to_string(execute));
     return execute;

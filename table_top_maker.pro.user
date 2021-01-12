@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.14.0, 2021-01-09T17:38:29. -->
+<!-- Written by QtCreator 4.14.0, 2021-01-10T23:30:36. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -64,14 +64,22 @@
     <value type="bool" key="AutoTest.Framework.QtQuickTest">true</value>
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
-   <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
+   <valuemap type="QVariantMap" key="AutoTest.CheckStates">
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:ModelTest">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:cleanup">Unchecked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:cleanupTestCase">Unchecked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:initTestCase">Unchecked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:insert_delete_insert">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:unique_era_insertion">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:valid_insertion">Checked</value>
+   </valuemap>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey">
     <value type="QString">-fno-delayed-template-parsing</value>
    </valuelist>
    <value type="bool" key="ClangCodeModel.UseGlobalConfig">false</value>
-   <value type="QString" key="ClangCodeModel.WarningConfigId">{2e0d34df-16c7-45af-996b-d1f53067bafe}</value>
+   <value type="QString" key="ClangCodeModel.WarningConfigId">Builtin.Questionable</value>
    <valuemap type="QVariantMap" key="ClangTools">
     <value type="bool" key="ClangTools.AnalyzeOpenFiles">true</value>
     <value type="bool" key="ClangTools.BuildBeforeAnalysis">true</value>

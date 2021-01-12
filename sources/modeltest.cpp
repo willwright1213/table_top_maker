@@ -19,6 +19,9 @@ private slots:
     {
         w = new World(false, "test");
         Era::initiate_validators();
+        Character::initiate_validators();
+        Character::generate_template(*w);
+        //Character::generate_css(*w);
     }
 
     void valid_insertion()
@@ -30,24 +33,25 @@ private slots:
         try {
            Era::create(*w, first, 0);
            Era::create(*w, second, 1);
+           qDebug() << "Era insertion successful";
         }  catch (std::invalid_argument &e) {
             verification = e.what();
         }
-
-        /*
 
         QString character_name = "Willis";
         QString character_race = "Human";
         QString character_class = "Paladin";
+        QString birth_year = "10 000 bc";
+        QString birth_place = "Winterfell";
 
         try {
-           Character::create(*w, character_name, character_race, character_class);
+           Character::create(*w, character_name, character_race, character_class, birth_year, birth_place, "", "", "<p>oh hell naw</p>");
+           qDebug() << "Character insertion successful";
         }  catch (std::invalid_argument &e) {
+            qDebug() << e.what();
             verification = e.what();
         }
 
-        */
-        qDebug() << verification;
         QVERIFY(verification == "");
     }
 
@@ -92,10 +96,9 @@ private slots:
     }
 
     void cleanupTestCase(){
-        w->destroy();
+        //w->destroy();
     }
 };
 
-QTEST_MAIN(ModelTest)
 #include "modeltest.moc"
 

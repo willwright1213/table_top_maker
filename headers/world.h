@@ -10,6 +10,7 @@ class World {
 
 public:
     World(bool load = false, QString n = QString::Null());
+    World();
     ~World();
     void destroy();
     QDir *path() const;

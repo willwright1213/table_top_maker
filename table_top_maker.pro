@@ -9,10 +9,12 @@ CONFIG += c++14
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    sources/characterviewer.cpp \
     lib/sqlite3/sqlite3.c \
     sources/character.cpp \
     sources/database.cpp \
     sources/era.cpp \
+    sources/html_generator.cpp \
     sources/main.cpp \
     sources/mainwindow.cpp \
     sources/model.cpp \
@@ -21,9 +23,10 @@ SOURCES += \
     sources/worldwindow.cpp
 
 HEADERS += \
+    headers/characterviewer.h \
+    headers/html_generator.h \
     headers/model.h \
     headers/character.h \
-    headers/xml.h \
     lib/sqlite3/sqlite3.h \
     headers/database.h \
     headers/world.h \
@@ -34,7 +37,12 @@ HEADERS += \
 
 FORMS += \
     UI/mainwindow.ui \
-    UI/worldwindow.ui
+    UI/worldwindow.ui \
+    UI/characterviewer.ui
+
+SUBDIRS = assets
+SUBDIRS += assets/html
+SUBDIRS += assets/html/character.html
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

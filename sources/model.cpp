@@ -19,7 +19,10 @@ bool Model::validate(QString &value, QRegExp validator) {
 
 bool Model::validate_all(QHash<QString, QString> &values, QHash<QString, QRegExp> validators){
     for(auto val = values.begin(); val != values.end(); ++ val){
-        if(!validate(val.value(), validators.value(val.key()))) return false;
+        if(!validate(val.value(), validators.value(val.key()))) {
+            qDebug() << val.value() << validators.value(val.key());
+            return false;
+        }
     }
     return true;
 }
