@@ -1,8 +1,6 @@
 #include "../headers/mainwindow.h"
 #include "ui_mainwindow.h"
 
-
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -23,11 +21,9 @@ void MainWindow::newGame() {
    bool ok;
    QString name = QInputDialog::getText(this, "New World", "World Name", QLineEdit::Normal, "Name your world", &ok);
    if(ok && !name.isEmpty()){
-       World *w = new World(false, name);
-       QString era = "Dark Age";
-       Era::create(*w, era, 1);
-
-       //load the world window
+    World *world = new World(false, name);
+    WorldWindow *worldView = new WorldWindow(nullptr, world);
+    worldView->show();
    }
 }
 

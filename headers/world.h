@@ -6,17 +6,21 @@
 #include <QDir>
 #include "headers/database.h"
 
+
 class World {
 
 public:
-    World(bool load = false, QString n = QString::Null());
-    World();
+    World(bool load = false, const QString& n = nullptr);
     ~World();
     void destroy();
     QDir *path() const;
 private:
     QString n;
     QDir *p;
+    void generateTemplates();
+    void generateCharacterTemplate();
+    void generateCampaignTemplate();
+
 };
 
 

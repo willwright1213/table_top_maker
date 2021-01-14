@@ -12,24 +12,20 @@ void database::initiateDB(QDir *path){
     if(connection == SQLITE_OK){
         std::string query =
 
-                "CREATE TABLE era ("
-                "id INTEGER PRIMARY KEY NOT NULL, "
-                "name TEXT NOT NULL, "
-                "ordering INT UNIQUE); "
-
-                "CREATE TABLE events ("
-                "id INTEGER PRIMARY KEY, "
-                "name TEXT NOT NULL, "
-                "era_id INT NOT NULL, "
-                "FOREIGN KEY(era_id) "
-                "   REFERENCES era (id) );"
-
                 "CREATE TABLE campaigns ("
                 "id INTEGER PRIMARY KEY, "
                 "name TEXT NOT NULL, "
-                "era_id INT NOT NULL, "
-                "FOREIGN KEY(era_id) "
-                "   REFERENCES era (id) );"
+                "info TEXT NOT NULL); "
+
+                "CREATE TABLE groups ("
+                "id INTEGER PRIMARY KEY, "
+                "campaign_id INTEGER NOT NULL REFERENCES campaigns(id), "
+                "name TEXT NOT NULL); "
+
+                "CREATE TABLE events ("
+                "id INTEGER PRIMARY KEY, "
+                "campaign_id INTEGER NOT NULL REFERENCES campaigns(id), "
+                "name TEXT NOT NULL); "
 
                 "CREATE TABLE characters ("
                 "id INTEGER PRIMARY KEY NOT NULL, "
@@ -43,21 +39,19 @@ void database::initiateDB(QDir *path){
                 "bio TEXT);"
 
                 "CREATE TABLE campaign_characters ("
-                "campaign_id INT NOT NULL, "
-                "character_id INT NOT NULL, "
-                "group TEXT, "
-                "alignment TEXT, "
-                "FOREIGN KEY(campaign_id) REFERENCES campaigns(id), "
-                "FOREIGN KEY(character_id) REFERENCES characters(id) );"
+                "campaign_id INTEGER NOT NULL REFERENCES campaigns(id), "
+                "character_id INTEGER NOT NULL REFERENCES characters(id), "
+                "group_id INTEGER NOT NULL REFERENCES(id), "
+                "alignment TEXT);"
 
                 "CREATE TABLE event_characters ("
-                "event_id INT NOT NULL, "
-                "character_id INT NOT NULL, "
-                "FOREIGN KEY(event_id) REFERENCES events(id), "
-                "FOREIGN KEY(character_id) REFERENCES characters(id) );";
+                "event_id INT NOT NULL REFERENCES events(id), "
+                "character_id INT NOT NULL REFERENCES characters(id) "
+                ");";
 
         char *errmsg;
         int execute = sqlite3_exec(database::db, query.c_str(), NULL, 0, &errmsg);
+        qDebug() << execute;
     }
     else {
     }
@@ -83,7 +77,7 @@ int database::insert(QDir *path, std::string table, QHash<QString, QString> &dat
     execute = sqlite3_exec(database::db, query.c_str(), select_callback, NULL, nullptr);
     select(path, sqlite3_last_insert_rowid(db), table);
     closeConnection();
-    if(execute != SQLITE_OK)  throw std::invalid_argument(std::to_string(execute));
+    if(execute != SQLITE_OK)  throw std::invalid_argument(query + " " + std::to_string(execute));
     return execute;
 
 }

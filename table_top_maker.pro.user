@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.14.0, 2021-01-11T23:38:21. -->
+<!-- Written by QtCreator 4.14.0, 2021-01-12T21:26:00. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -65,13 +65,12 @@
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="AutoTest.CheckStates">
-    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:ModelTest">Checked</value>
-    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:cleanup">Unchecked</value>
-    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:cleanupTestCase">Unchecked</value>
-    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:initTestCase">Unchecked</value>
-    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:insert_delete_insert">Checked</value>
-    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:unique_era_insertion">Checked</value>
-    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/modeltest.cpp:valid_insertion">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/testcase.cpp:TestCase">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/testcase.cpp:cleanup">Unchecked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/testcase.cpp:cleanupTestCase">Unchecked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/testcase.cpp:files_integrity">Checked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/testcase.cpp:initTestCase">Unchecked</value>
+    <value type="Qt::CheckState" key="C:/Users/William/Documents/table_top_maker/sources/testcase.cpp:valid_insertion">Checked</value>
    </valuemap>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>

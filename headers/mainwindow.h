@@ -6,11 +6,13 @@
 #include <QInputDialog>
 #include <QDir>
 #include "headers/world.h"
-#include "headers/era.h"
+#include "headers/worldwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+extern World *world;
 
 class MainWindow : public QMainWindow
 {
