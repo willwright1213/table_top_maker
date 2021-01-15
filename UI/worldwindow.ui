@@ -29,9 +29,9 @@
     <widget class="QPushButton" name="addButton">
      <property name="geometry">
       <rect>
-       <x>780</x>
-       <y>20</y>
-       <width>221</width>
+       <x>790</x>
+       <y>10</y>
+       <width>211</width>
        <height>71</height>
       </rect>
      </property>
@@ -39,13 +39,13 @@
       <string>Add Character</string>
      </property>
     </widget>
-    <widget class="QListView" name="charactersView">
+    <widget class="QTableView" name="characterTableView">
      <property name="geometry">
       <rect>
-       <x>15</x>
-       <y>20</y>
-       <width>751</width>
-       <height>551</height>
+       <x>5</x>
+       <y>10</y>
+       <width>781</width>
+       <height>561</height>
       </rect>
      </property>
     </widget>

@@ -34,7 +34,6 @@ private slots:
     void valid_insertion()
     {
         QString verification = "";
-
         QString character_name = "Willis";
         QString character_race = "Human";
         QString character_class = "Paladin";
@@ -54,10 +53,10 @@ private slots:
 
 
     void cleanup() {
+        QSqlQuery query;
         database::openConnection(w->path());
-        sqlite3_exec(database::db, "DELETE FROM characters;", NULL, NULL, nullptr);
-        sqlite3_exec(database::db, "DELETE FROM campaigns;", NULL, NULL, nullptr);
-        sqlite3_exec(database::db, "DELETE FROM events;", NULL, NULL, nullptr);
+        //query.prepare("DELETE FROM characters; DELETE FROM campaigns; DELETE FROM events;");
+        database::db.exec();
         database::closeConnection();
     }
 

@@ -5,27 +5,27 @@
 #include <QString>
 #include <QDir>
 #include <QDebug>
+#include <QSqlTableModel>
+#include <QSqlQuery>
 
 namespace database {
 
-    extern std::string query;
-    extern sqlite3 *db;
+    extern QSqlDatabase db;
     extern QHash<QString, QString> selected;
 
     int openConnection(QDir *path);
     void closeConnection();
-    void initiateDB(QDir *path);
+    int initiateDB(QDir *path);
 
-    int find_id(QDir *path, std::string table, std::string value, std::string column);
+    int find_id(QDir *path, const QString& table, const QString& value, const QString& column);
 
-    int insert(QDir *path, std::string table, QHash<QString, QString> &data);
-    int remove(QDir *path, std::string table, int id);
+    int insert(QDir *path, const QString& table, QHash<QString, QString> &data);
+    void remove(QDir *path, const QString& table, int id);
 
 
-    QHash<QString, QString> select(QDir *path, int id, std::string table);
-    int select_all(QDir *path, std::string table);
-    int select_callback(void *unused, int count, char **data, char **columns);
-    int select_all_callback(void *unused, int count, char **data, char **columns);
+    QHash<QString, QString> select(QDir *path, const QString& table, int id);
+    int select_all(const QString&table);
+
 
 }
 

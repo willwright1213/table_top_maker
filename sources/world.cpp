@@ -10,7 +10,9 @@ World::World(bool load, const QString& name):n(name){
         QDir().mkpath(p->canonicalPath().append("/campaigns/css"));
         QDir().mkpath(p->canonicalPath().append("/campaigns/images"));
         /* initiate database (opening a connection creates the db file if it doesn't exist) */
-        database::initiateDB(p);
+        database::db = QSqlDatabase::addDatabase("QSQLITE");
+        database::db.setDatabaseName(path()->canonicalPath().toLocal8Bit()+"/world.db");
+        database::initiateDB(path());
         generateTemplates();
     }
     else {

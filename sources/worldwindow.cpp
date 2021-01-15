@@ -7,9 +7,27 @@ WorldWindow::WorldWindow(QWidget *parent, World *w) :
     w(w),
     ui(new Ui::WorldWindow)
 {
-    model = new QStringListModel();
+    model = new QSqlQueryModel;
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(w->path()->canonicalPath().toLocal8Bit()+"/world.db");
+    db.open();
+    model->setQuery("SELECT id, name, race, class, birth_year, birth_place, death_year, death_place FROM characters", db);
+    db.close();
     ui->setupUi(this);
-    this->setVisible(true);
+    ui->characterTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->characterTableView->setModel(model);
+
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("name"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("race"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("class"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("Birth Year"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("Birth Place"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("Death Year"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Death Year"));
+
+
+
     connect(ui->addButton, &QPushButton::clicked, this, &WorldWindow::addCharacter);
     qDebug() << w->path()->canonicalPath();
 }

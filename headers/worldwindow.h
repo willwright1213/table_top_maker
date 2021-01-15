@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QStringListModel>
+#include <QSqlTableModel>
 #include "world.h"
 #include "addcharacterview.h"
 
@@ -24,7 +25,7 @@ public slots:
 private:
     World *w;
     Ui::WorldWindow *ui;
-    QStringListModel *model;
+    QSqlQueryModel *model;
     void populateCharacterList();
 };
 

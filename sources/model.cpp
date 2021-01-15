@@ -1,15 +1,15 @@
 #include "headers/model.h"
 
-void Model::create(World &w, std::string table, QHash<QString, QString> input){
+void Model::create(World &w, const QString& table, QHash<QString, QString> input){
     database::insert(w.path(), table, input);
 }
 
-void Model::remove(World &w, std::string table, int id){
+void Model::remove(World &w, const QString& table, int id){
     database::remove(w.path(), table, id);
 };
 
-int Model::find_id(World &w, std::string table, QString &value, QString column){
-    return database::find_id(w.path(), table, value.toLocal8Bit().constData(), column.toLocal8Bit().constData());
+int Model::find_id(World &w, const QString& table, const QString& value, const QString& column){
+    return database::find_id(w.path(), table, value, column);
 }
 
 bool Model::validate(QString &value, QRegExp validator) {
