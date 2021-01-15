@@ -2,9 +2,10 @@
 
 void Model::create(World &w, const QString& table, QHash<QString, QString> input){
     database::insert(w.path(), table, input);
+    selectItem(w, table, "1");
 }
 
-void Model::remove(World &w, const QString& table, int id){
+void Model::remove(World &w, const QString& table, const QString& id){
     database::remove(w.path(), table, id);
 };
 
@@ -46,4 +47,15 @@ void Model::generateHTML(World &w, QString table, QHash<QString, QString>& hash)
     QTextStream out(&newFile);
     out << data;
     newFile.close();
+}
+
+//Generates a Hash of a QSQLRecord with the key being the column name.
+QHash<QString, QString> Model::selectItem(World &w, const QString& table, const QString& id){
+    QHash<QString, QString> item;
+    QSqlRecord record = database::select(w.path(),table, id);
+    for(int i = 0; i < record.count() - 1; ++i){
+        item.insert(record.fieldName(i), record.value(i).toString());
+    }
+    qDebug() << item;
+    return item;
 }

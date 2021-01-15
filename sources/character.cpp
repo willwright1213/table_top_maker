@@ -19,7 +19,7 @@ void Character::create(World &w, const QString &name, const QString &race, const
     Model::generateHTML(w, "characters", database::selected);
 }
 
-void Character::remove(World &w, int id){ Model::remove(w, "characters", id); }
+void Character::remove(World &w, const QString& id){ Model::remove(w, "characters", id); }
 
 void Character::initiate_validators()
 {

@@ -82,19 +82,19 @@ int database::insert(QDir *path, const QString& table, QHash<QString, QString> &
     return error;
 }
 
-QHash<QString, QString> database::select(QDir *path, const QString& table, int id) {
-    selected.clear();
+//Generates a record of the selected item;
+QSqlRecord database::select(QDir *path, const QString& table, const QString& id) {
+    QSqlRecord record;
     openConnection(path);
     QSqlQuery query("SELECT * FROM " + table + " WHERE id = " + id + ";");
-    QMap<QString, QVariant> sqlIterator(query.boundValues());
-    for(auto i = sqlIterator.begin(); i != sqlIterator.end(); i++){
-        selected.insert(i.key(), i.value().toString());
+    if(query.next()){
+        record = query.record();
     }
     db.close();
-    return selected;
+    return record;
 };
 
-void database::remove(QDir *path, const QString& table, int id){
+void database::remove(QDir *path, const QString& table, const QString&  id){
     QSqlQuery  query;
     openConnection(path);
     query.prepare("DELETE FROM " + table + " WHERE id = " + id + ";");

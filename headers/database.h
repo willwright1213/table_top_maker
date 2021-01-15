@@ -5,8 +5,8 @@
 #include <QString>
 #include <QDir>
 #include <QDebug>
-#include <QSqlTableModel>
 #include <QSqlQuery>
+#include <QSqlRecord>
 
 namespace database {
 
@@ -20,10 +20,10 @@ namespace database {
     int find_id(QDir *path, const QString& table, const QString& value, const QString& column);
 
     int insert(QDir *path, const QString& table, QHash<QString, QString> &data);
-    void remove(QDir *path, const QString& table, int id);
+    void remove(QDir *path, const QString& table, const QString& id);
 
 
-    QHash<QString, QString> select(QDir *path, const QString& table, int id);
+    QSqlRecord select(QDir *path, const QString& table, const QString& id);
     int select_all(const QString&table);
 
 
