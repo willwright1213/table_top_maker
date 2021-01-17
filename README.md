@@ -16,14 +16,5 @@ and include them in one or many campaigns.
 There is no gui functionality (This app is not in a working state). What I'm doing right now is setting up the "skeleton" of my application for a lack of a better word.
 This means writing functions related to database queries (insert, remove, select, etc..) and eventually functions that would generate html files for the view.
 
-# SQlite3
-
-This Project works with the amalgammation files of sqlite3 which I have no included in this repository. Sqlite3 can be downloaded here: https://www.sqlite.org/download.html
-In the root folder of the project, create a folder "lib/sqlite3", and include the files of the ammalgammation in this folder. 
-
-# World.cpp
-
-World.cpp currently has database transactions function which were there for test, but will be removed as soon as everything works with Database.cpp. The world is basically our database,
-as one if its main role is to hold the path of our db that our transactions will be performed on.
 
 

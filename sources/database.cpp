@@ -1,6 +1,6 @@
 #include "headers/database.h"
 
-QSqlDatabase database::db;
+QSqlDatabase database::db = QSqlDatabase::addDatabase("QSQLITE");
 QHash<QString, QString> database::selected = QHash<QString, QString>();
 
 int database::openConnection(QDir *path){
@@ -11,6 +11,7 @@ void database::closeConnection() { db.close();}
 
 int database::initiateDB(QDir *path){
        QSqlQuery query;
+       int error = 0;
        openConnection(path);
        QString createCampaignsTable=
                "CREATE TABLE campaigns ("
@@ -50,15 +51,17 @@ int database::initiateDB(QDir *path){
                "character_id INT NOT NULL REFERENCES characters(id) "
                ");";
 
-       if(!query.exec(createCampaignsTable)) {db.close(); qDebug() << "error"; return 1;}
-       if(!query.exec(createGroupsTable)) {db.close(); qDebug() << "error"; return 1;}
-       if(!query.exec(createEventsTable)) {db.close(); qDebug() << "error"; return 1;}
-       if(!query.exec(createCharactersTable)) {db.close(); qDebug() << "error"; return 1;}
-       if(!query.exec(createCampaignCharactersTable)) {db.close(); qDebug() << "error"; return 1;}
-       if(!query.exec(createEventCharactersTable)) {db.close(); qDebug() << "error"; return 1;}
+       if(!query.exec(createCampaignsTable)) {qDebug() << "couldn't create campaigns table"; error = 1;}
+       if(!query.exec(createGroupsTable)) {qDebug() << "couldn't create groups table"; error = 1;}
+       if(!query.exec(createEventsTable)) {qDebug() << "couldn't create events table"; error = 1;}
+       if(!query.exec(createCharactersTable)) {qDebug() << "couldn't create characters table"; error = 1;}
+       if(!query.exec(createCampaignCharactersTable)) {qDebug() << "couldn't create campaign_characters link table"; error = 1;}
+       if(!query.exec(createEventCharactersTable)) {qDebug() << "couldn't create event_characters link table"; error = 1;}
        db.close();
-       return 0;
+       return error;
 }
+
+
 
 int database::insert(QDir *path, const QString& table, QHash<QString, QString> &data){
     QSqlQuery query;

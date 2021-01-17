@@ -8,11 +8,9 @@ WorldWindow::WorldWindow(QWidget *parent, World *w) :
     ui(new Ui::WorldWindow)
 {
     model = new QSqlQueryModel;
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(w->path()->canonicalPath().toLocal8Bit()+"/world.db");
-    db.open();
-    model->setQuery("SELECT id, name, race, class, birth_year, birth_place, death_year, death_place FROM characters", db);
-    db.close();
+    database::openConnection(w->path());
+    model->setQuery("SELECT * FROM characters", database::db);
+    database::closeConnection();
     ui->setupUi(this);
     ui->characterTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->characterTableView->setModel(model);
@@ -25,6 +23,7 @@ WorldWindow::WorldWindow(QWidget *parent, World *w) :
     model->setHeaderData(5, Qt::Horizontal, QObject::tr("Birth Place"));
     model->setHeaderData(6, Qt::Horizontal, QObject::tr("Death Year"));
     model->setHeaderData(7, Qt::Horizontal, QObject::tr("Death Year"));
+    model->setHeaderData(8, Qt::Horizontal, QObject::tr("Bio"));
 
 
 
